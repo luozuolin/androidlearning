@@ -1,0 +1,14 @@
+1,首先安装和配置git
+2，在github上创建项目
+3，接下来就是
+…or create a new repository on the command line
+
+echo "# androidlearning" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/luozuolin/androidlearning.git
+git push -u origin master
+
+4,git add  :添加文件
+5，git commit:提交修改
