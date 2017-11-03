@@ -12,3 +12,11 @@ git push -u origin master
 
 4,git add  :添加文件
 5，git commit:提交修改
+6,git push -u origin master:提交到代码库
+
+git commit 代码时提示： Warning: Your console font probably doesn‘t support Unicode. If you experience trange characters in the output, consider switching to a TrueType font such as ucida Console!
+
+问题处理
+git config  core.quotepath off
+git config  --unset i18n.logoutputencoding
+git config  --unset i18n.commitencoding
