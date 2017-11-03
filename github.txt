@@ -1,7 +1,7 @@
-1,Ê×ÏÈ°²×°ºÍÅäÖÃgit
-2£¬ÔÚgithubÉÏ´´½¨ÏîÄ¿
-3£¬½ÓÏÂÀ´¾ÍÊÇ
-¡­or create a new repository on the command line
+ï»¿1,é¦–å…ˆå®‰è£…å’Œé…ç½®git
+2ï¼Œåœ¨githubä¸Šåˆ›å»ºé¡¹ç›®
+3ï¼Œæ¥ä¸‹æ¥å°±æ˜¯
+â€¦or create a new repository on the command line
 
 echo "# androidlearning" >> README.md
 git init
@@ -10,5 +10,5 @@ git commit -m "first commit"
 git remote add origin https://github.com/luozuolin/androidlearning.git
 git push -u origin master
 
-4,git add  :Ìí¼ÓÎÄ¼ş
-5£¬git commit:Ìá½»ĞŞ¸Ä
+4,git add  :æ·»åŠ æ–‡ä»¶
+5ï¼Œgit commit:æäº¤ä¿®æ”¹
