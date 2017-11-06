@@ -20,3 +20,5 @@ git commit 代码时提示： Warning: Your console font probably doesn‘t supp
 git config  core.quotepath off
 git config  --unset i18n.logoutputencoding
 git config  --unset i18n.commitencoding
+
+github测试
