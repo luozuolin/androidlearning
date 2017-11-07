@@ -3,12 +3,16 @@ package com.example.luozl.myapplication;
 import android.app.Activity;
 import android.app.Notification;
 import android.graphics.Color;
+import android.hardware.camera2.CameraManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.view.textservice.TextServicesManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageSwitcher;
@@ -26,6 +31,7 @@ import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
@@ -71,7 +77,92 @@ public class MainActivity extends AppCompatActivity {
        // arrayadapter();
        //imageswitcher();
         //textswitcher();
-       viewflipper();
+      // viewflipper();
+    //toast();
+      //  calendar();
+        searchview();
+    }
+    public void searchview()
+    {
+        String[] mstrings={"aaaa","bbbasas","cdcscs"};
+        setContentView(R.layout.searchview);
+         SearchView searchView=(SearchView)findViewById(R.id.searchView);
+        final  ListView lv=(ListView)findViewById(R.id.lv);
+        lv.setAdapter(new ArrayAdapter<String>(this,R.layout.simole_list_item_1,mstrings));
+        lv.setTextFilterEnabled(true);
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("查找");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(MainActivity.this,"qqaq",Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(TextUtils.isEmpty(newText))
+                {
+                    lv.clearTextFilter();
+                }
+                else
+                {
+                    lv.setFilterText(newText);
+                }
+                return false;
+            }
+        });
+
+
+
+
+    }
+    public void calendar()
+    {
+        setContentView(R.layout.calendar);
+        CalendarView calendarView=(CalendarView)findViewById(R.id.calendarView);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Toast.makeText(MainActivity.this,
+                        "你的生日是："+year+"年" +month+"月" +dayOfMonth+"日",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    public  void  toast()
+    {
+        setContentView(R.layout.toast);
+        Button  btn1=(Button)findViewById(R.id.btn1);
+        Button btn2=(Button)findViewById(R.id.btn2);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast=Toast.makeText(MainActivity.this,"简单的提示信息",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast toast=new Toast(MainActivity.this);
+                toast.setGravity(Gravity.CENTER,0,0);
+                ImageView image=new ImageView(MainActivity.this);
+                image.setImageResource(R.drawable.error);
+                LinearLayout linearLayout=new LinearLayout(MainActivity.this);
+                linearLayout.addView(image);
+                TextView textView=new TextView(MainActivity.this);
+                textView.setText("带图片的提示信息!");
+                textView.setTextSize(24);
+                textView.setTextColor(Color.MAGENTA);
+                linearLayout.addView(textView);
+                toast.setView(linearLayout);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
     private ViewFlipper viewFlipper;
     public void viewflipper()
