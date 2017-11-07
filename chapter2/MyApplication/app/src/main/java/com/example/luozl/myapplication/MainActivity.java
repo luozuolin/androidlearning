@@ -41,6 +41,7 @@ public class MainActivity extends Activity {
       //  frames();
         grid();
     }
+    //android srudio  git  测试
     public void grid()
     {
         GridLayout gridLayout;
