@@ -5,13 +5,17 @@ import android.app.Notification;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.StringTokenizer;
@@ -39,7 +43,40 @@ public class MainActivity extends Activity {
         //drawCircle();
        // setContentView(R.layout.table);
       //  frames();
-        grid();
+        //grid();
+       // edittext();
+     //   button();
+       // checkbutton();
+        listview();
+    }
+    public   void listview()
+    {
+        setContentView(R.layout.listview);
+    }
+    public     void checkbutton()
+    {
+        setContentView(R.layout.checkbuttons);
+        RadioGroup rg=(RadioGroup)findViewById(R.id.rg);
+        final TextView show=(TextView)findViewById(R.id.show);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                String tip=checkedId==R.id.male?"您的性别是男人":"您的性别是女人";
+                show.setText(tip);
+            }
+        });
+    }
+    public   void button()
+    {
+        setContentView(R.layout.button);
+    }
+    public   void edittext()
+    {
+        setContentView(R.layout.edittext);
+    }
+    public   void textview()
+    {
+        setContentView(R.layout.textview);
     }
     //android srudio  git  测试
     public void grid()

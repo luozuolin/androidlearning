@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="我爱Java"
+        android:textSize="20pt"
+        android:drawableEnd="@drawable/error"/>
+    <!--设置结尾省略，所有字母大写-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="我爱Java我爱Java我爱Java我爱Java我爱Java我爱Java我爱Java我爱Java我爱Java"
+        android:ellipsize="end"
+        android:textAllCaps="true"
+        />
+    <!--对邮件电话增加链接-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="邮件是 kongyeeku@163.com,电话是0102222222"
+        android:autoLink="email|phone"/>
+    <!--设置文字颜色大小，并使用阴影-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试文字"
+        android:shadowColor="#00f"
+        android:shadowDx="10.0"
+        android:shadowDy="8.0"
+        android:shadowRadius="3.0"
+        android:textColor="#f00"
+        android:textSize="18pt"/>
+    <!--测试密码框-->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hello"
+        android:inputType="textPassword"/>
+    <CheckedTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="可勾选的文本"
+        android:checked="true"
+        android:checkMark="@drawable/error"/>
+</LinearLayout>
