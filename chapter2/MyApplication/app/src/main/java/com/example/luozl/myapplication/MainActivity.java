@@ -1,7 +1,14 @@
 package com.example.luozl.myapplication;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.camera2.CameraManager;
 import android.media.Image;
@@ -9,11 +16,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.IdRes;
+import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.SubMenuBuilder;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.textservice.TextServicesManager;
@@ -21,16 +34,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
+import android.widget.TabHost;
+import android.widget.TableLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
@@ -38,6 +57,7 @@ import android.widget.ViewSwitcher;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -53,42 +73,374 @@ import java.util.TimerTask;
  */
 
 public class MainActivity extends AppCompatActivity {
-    int[] images=new int[]{
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
+        //activity_images()
+        //drawCircle();
+        // setContentView(R.layout.table);
+        //  frames();
+        //grid();
+        // edittext();
+        //   button();
+        // checkbutton();
+        //listview();
+        // arrayadapter();
+        //imageswitcher();
+        //textswitcher();
+        // viewflipper();
+        //toast();
+        //  calendar();
+       //    searchview();
+      //  notification();
+       // dialog();
+        //processdialog();
+        showmenu();
+    }
+    public void showmenu()
+    {
+        setContentView(R.layout.menu);
+        editText=(EditText)findViewById(R.id.menuedit);
+    }
+    final int FONT_10=0x111;
+    final int FONT_12=0x112;
+    final int FONT_14=0x113;
+    final int FONT_16=0x114;
+    final int FONT_18=0x115;
+
+    final int PLAIN_ITEM=0x11b;
+    final  int FONT_RED=0x116;
+    final  int FONT_BLUR=0x117;
+    final  int FONT_GREEN=0x118;
+    private EditText editText;
+    @Override
+     public boolean onCreateOptionsMenu(Menu menu)
+    {
+        SubMenu fontMenu=menu.addSubMenu("字体大小");
+        fontMenu.setIcon(R.drawable.error);
+        fontMenu.setHeaderTitle("选择字体大小");
+        fontMenu.add(0,FONT_10,0,"10号字体");
+        fontMenu.add(0,FONT_12,0,"12号字体");
+        fontMenu.add(0,FONT_14,0,"14号字体");
+        fontMenu.add(0,FONT_16,0,"16号字体");
+        fontMenu.add(0,FONT_18,0,"18号字体");
+        menu.add(0,PLAIN_ITEM,0,"普通菜单项");
+        SubMenu colorMenu=menu.addSubMenu("字体颜色");
+        colorMenu.setHeaderTitle("选择字体颜色");
+        colorMenu.add(0,FONT_RED,0,"红色");
+        colorMenu.add(0,FONT_GREEN,0,"绿色");
+        colorMenu.add(0,FONT_BLUR,0,"蓝色");
+        SubMenu prog=menu.addSubMenu("启动程序");
+        prog.setHeaderTitle("选择您要启动的程序");
+        MenuItem menuItem=prog.add("查看Swift");
+        menuItem.setIntent(new Intent(this,OtherActivity.class));
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem mi)
+    {
+        switch (mi.getItemId())
+        {
+            case FONT_10:
+                editText.setTextSize(10*2);
+                break;
+            case FONT_12:
+                editText.setTextSize(12*2);
+                break;
+            case FONT_14:
+                editText.setTextSize(14*2);
+                break;
+            case FONT_16:
+                editText.setTextSize(16*2);
+                break;
+            case FONT_18:
+                editText.setTextSize(18*2);
+                break;
+            case FONT_RED:
+                editText.setTextColor(Color.RED);
+                break;
+            case FONT_GREEN:
+                editText.setTextColor(Color.GREEN);
+                break;
+            case FONT_BLUR:
+                editText.setTextColor(Color.BLUE);
+                break;
+            case PLAIN_ITEM:
+               Toast toast=Toast.makeText(MainActivity.this,
+                       "您单击了普通的菜单项",Toast.LENGTH_SHORT);
+                toast.show();
+                break;
+        }
+        return  true;
+    }
+    int[] images = new int[]{
             R.drawable.bg_top,
             R.drawable.error,
             R.drawable.info_up,
             R.drawable.info
     };
-    int currentImg=0;
-    @Override
-    public void onCreate(Bundle savedInstanceState)
+    int currentImg = 0;
+    public void processdialog()
     {
-        super.onCreate(savedInstanceState);
-       //setContentView(R.layout.activity_main);
-        //activity_images()
-        //drawCircle();
-       // setContentView(R.layout.table);
-      //  frames();
-        //grid();
-       // edittext();
-     //   button();
-       // checkbutton();
-        //listview();
-       // arrayadapter();
-       //imageswitcher();
-        //textswitcher();
-      // viewflipper();
-    //toast();
-      //  calendar();
-        searchview();
+        setContentView(R.layout.progress);
     }
+    final static int MAX_PROGRESS=100;
+    private int[] data=new int[50];
+    int processStatus=0;
+    int hasData=0;
+    ProgressDialog pd1,pd2;
+    Handler handlerProcess=new Handler()
+    {
+        @Override
+        public  void handleMessage(Message msg)
+        {
+            if(msg.what==0x123)
+            {
+                pd2.setProgress(processStatus);
+            }
+        }
+    };
+    public void    showSpinner(View v)
+    {
+        ProgressDialog.show(this,"任务执行中","任务执行中，请等待",false,true);
+    }
+    public void showIndeterminate(View v)
+    {
+        pd1=new ProgressDialog(MainActivity.this);
+        pd1.setTitle("任务正在执行中");
+        pd1.setMessage("任务正在执行中，请稍等");
+        pd1.setCancelable(true);
+        pd1.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd1.setIndeterminate(true);
+        pd1.show();
+    }
+    public void showProgress(View e)
+    {
+        processStatus=0;
+        hasData=0;
+        pd2=new ProgressDialog(MainActivity.this);
+        pd2.setMax(MAX_PROGRESS);
+        pd2.setTitle("任务完成百分比");
+        pd2.setMessage("好事任务的完成百分比");
+        pd2.setCancelable(false);
+        pd2.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd2.setIndeterminate(false);
+        pd2.show();
+        new Thread()
+        {
+            public  void run()
+            {
+                while (processStatus<MAX_PROGRESS)
+                {
+                    processStatus=MAX_PROGRESS*doWork()/data.length;
+                    handlerProcess.sendEmptyMessage(0x123);
+                }
+                if(processStatus>=MAX_PROGRESS)
+                {
+                    pd2.dismiss();
+                }
+            }
+        }.start();
+    }
+    public  int doWork()
+    {
+        data[hasData++]=(int)(Math.random()*100);
+        try
+        {
+            Thread.sleep(100);
+        }catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        return  hasData;
+    }
+    public   void dateset(View v)
+    {
+        Calendar  c=Calendar.getInstance();
+        new DatePickerDialog(MainActivity.this,
+                new DatePickerDialog.OnDateSetListener(){
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        dialogshow.setText("您选择了："+year+"-"+month+"-"+dayOfMonth);
+                    }
+                },c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH)).show();
+    }
+    public   void timeset(View v)
+    {
+        Calendar  c=Calendar.getInstance();
+        new TimePickerDialog(MainActivity.this,
+                new TimePickerDialog.OnTimeSetListener(){
+
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        dialogshow.setText("您选择了："+hourOfDay+"-"+minute);
+                    }
+
+                },c.get(Calendar.HOUR_OF_DAY),c.get(Calendar.MINUTE),true).show();
+    }
+    public   void popupwindow(View v)
+    {
+        popupWindow.showAtLocation(findViewById(R.id.dialogpopupbtn),Gravity.CENTER,20,20);
+
+    }
+    public  void customView(View v)
+    {
+        TableLayout loginForm=(TableLayout)getLayoutInflater().inflate(R.layout.logform,null);
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.error)
+                .setTitle("自定义View对话框")
+                .setView(loginForm)
+                .setPositiveButton("登录", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialogshow.setText("你选中了《登录》");
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialogshow.setText("你选中了《取消》");
+                    }
+                }).create()
+                .show();
+    }
+   TextView  dialogshow;
+    View root;
+     PopupWindow popupWindow;
+    public void dialog()
+    {
+        setContentView(R.layout.dialog);
+        dialogshow=(TextView)findViewById(R.id.dialogshow);
+
+
+         root=this.getLayoutInflater().inflate(R.layout.popup,null);
+         popupWindow=new PopupWindow(root,560,720);
+        root.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
+
+    }
+    public   void multiChoice(View v)
+    {
+        final String[] items={
+                "招商银行",
+                "建设银行",
+                "民生银行"
+        };
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                .setTitle("单选列表项对话框")
+                .setIcon(R.drawable.error)
+                .setMultiChoiceItems(items,new boolean[]{false,true,false,false}, null);
+        setPositiveButton(builder);
+        setNegativeButton(builder).create().show();
+    }
+    public void singleChoice(View v)
+    {
+        final String[] items={
+                "招商银行",
+                "建设银行",
+                "民生银行"
+        };
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                .setTitle("单选列表项对话框")
+                .setIcon(R.drawable.error)
+                .setSingleChoiceItems(items,1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialogshow.setText("你选中了《"+items[which]+"》");
+                    }
+                });
+        setPositiveButton(builder);
+        setNegativeButton(builder).create().show();
+    }
+    public void simpleList(View v)
+    {
+        final String[] items={
+                "招商银行",
+                "建设银行",
+                "民生银行"
+        };
+        AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                .setTitle("简单列表项对话框")
+                .setIcon(R.drawable.error)
+                .setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialogshow.setText("你选中了《"+items[which]+"》");
+                    }
+                });
+        setPositiveButton(builder);
+        setNegativeButton(builder).create().show();
+    }
+      public void simple(View v)
+     {
+         AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                 .setTitle("简单对话框")
+                 .setIcon(R.drawable.error)
+                 .setMessage("对话框测试内容\n第二行");
+         setPositiveButton(builder);
+         setNegativeButton(builder).create().show();
+
+     }
+     public AlertDialog.Builder setPositiveButton(AlertDialog.Builder builder)
+     {
+         return builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int which) {
+                 dialogshow.setText("点击了【确定】按钮！");
+             }
+         });
+     }
+     public AlertDialog.Builder setNegativeButton(AlertDialog.Builder builder)
+     {
+         return builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialog, int which) {
+                 dialogshow.setText("点击了【取消】按钮！");
+             }
+         });
+     }
+    static final int NOTIFICATION_ID=0x123;
+    //消息提醒
+    NotificationManager notificationManager;
+    public   void  notification()
+    {
+        setContentView(R.layout.notification);
+         notificationManager=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+    }
+    public   void send(View source)
+    {
+        Intent intent=new Intent(MainActivity.this,OtherActivity.class);
+        PendingIntent pi=PendingIntent.getActivity(MainActivity.this,0,intent,0);
+        Notification notification=new Notification.Builder(this)
+                .setAutoCancel(true)
+                .setTicker("有新消息")
+                .setSmallIcon(R.drawable.error)
+                .setContentTitle("一条新消息")
+                .setContentText("恭喜，来了条新消息")
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(pi)
+                .build();
+        notificationManager.notify(NOTIFICATION_ID,notification);
+
+    }
+    public void del(View v)
+    {
+        notificationManager.cancel(NOTIFICATION_ID);
+    }
+
     public void searchview()
     {
         String[] mstrings={"aaaa","bbbasas","cdcscs"};
         setContentView(R.layout.searchview);
          SearchView searchView=(SearchView)findViewById(R.id.searchView);
         final  ListView lv=(ListView)findViewById(R.id.lv);
-        lv.setAdapter(new ArrayAdapter<String>(this,R.layout.simole_list_item_1,mstrings));
+        lv.setAdapter(new ArrayAdapter<String>(this,R.layout.array_item,mstrings));
         lv.setTextFilterEnabled(true);
         searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
@@ -98,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(MainActivity.this,"qqaq",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"您选择的是："+query,Toast.LENGTH_SHORT).show();
                 return false;
             }
 
@@ -112,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     lv.setFilterText(newText);
                 }
-                return false;
+                return true;
             }
         });
 
