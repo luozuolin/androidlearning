@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.example.luozl.myapplication.MyButton
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MyButton"
-        android:id="@+id/mybutton"
-        android:onClick="mybuttonclick"/>
-    <com.example.luozl.myapplication.DrawView
-        android:orientation="vertical"
+        android:text="handle页面"/>
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300px" />
+        android:layout_height="match_parent"
+        android:id="@+id/handleImageView"/>
+
 </LinearLayout>

@@ -2,7 +2,12 @@ package com.example.luozl.myapplication;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.renderscript.Script;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.pm.ActivityInfoCompat;
+import android.support.v4.content.res.ConfigurationHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -29,9 +34,66 @@ public class MainActivity extends AppCompatActivity {
         //eventQs();
       //  plane();
         //  sendMsg();
-        mybytton();
+        //mybytton();
+        configuration();
     }
-
+    public   void   configuration()
+    {
+        setContentView(R.layout.configuration);
+        final EditText ori=(EditText)findViewById(R.id.ori);
+        final EditText navigation=(EditText)findViewById(R.id.navifation);
+        final EditText touch=(EditText)findViewById(R.id.touch);
+        final EditText mnc=(EditText)findViewById(R.id.mnc);
+        Button btn=(Button)findViewById(R.id.configurationbtn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Configuration cfg=getResources().getConfiguration();
+                String screen=cfg.orientation==Configuration.ORIENTATION_LANDSCAPE?"横向屏幕":"竖向屏幕";
+                String mncCode=cfg.mnc+"";
+                String naviName=cfg.orientation==Configuration.NAVIGATION_NONAV?
+                        "没有方向控制":cfg.orientation==Configuration.NAVIGATION_WHEEL?
+                        "滚轮方向控制":cfg.orientation==Configuration.NAVIGATION_DPAD?
+                        "方向键控制方向":"轨迹球控制方向";
+                navigation.setText(naviName);
+                String touchName=cfg.touchscreen==Configuration.TOUCHSCREEN_NOTOUCH?
+                        "无触摸屏":"支持触摸屏";
+                ori.setText(screen);
+                mnc.setText(mncCode);
+                touch.setText(touchName);
+            }
+        });
+        //修改屏幕方向
+        Button  btnchage=(Button)findViewById(R.id.configurationbtnchange);
+        btnchage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Configuration config=getResources().getConfiguration();
+                if(config.orientation==Configuration.ORIENTATION_LANDSCAPE)
+                {
+                    MainActivity.this.setRequestedOrientation(
+                            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    );
+                }
+                if(config.orientation==Configuration.ORIENTATION_PORTRAIT)
+                {
+                    MainActivity.this.setRequestedOrientation(
+                            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    );
+                }
+            }
+        });
+    }
+    @Override
+    public   void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        String  screen=newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE?
+                "横向屏幕":"纵向屏幕";
+        Toast.makeText(this,"系统的屏幕方向发生改变"+"\n修改后的屏幕方向为："+screen,
+                Toast.LENGTH_SHORT).show();
+    }
+    //修改测试
     public void mybuttonclick(View v)
     {
         Toast toast=Toast.makeText(this,"mybutton",Toast.LENGTH_SHORT);
