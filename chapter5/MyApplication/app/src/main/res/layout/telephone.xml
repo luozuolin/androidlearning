@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:cursorVisible="false"
+        android:id="@+id/teleshow"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="false"
+        android:cursorVisible="false"
+        android:id="@+id/telephone"/>
+    <Button
+         android:id="@+id/telebn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看联系人"/>
+    <Button
+        android:id="@+id/telehome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HOME"/>
+
+</LinearLayout>

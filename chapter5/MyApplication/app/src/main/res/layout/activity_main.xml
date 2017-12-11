@@ -11,5 +11,20 @@
         android:layout_height="wrap_content"
         android:text="启动second"
         android:id="@+id/bn"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ActionData"
+        android:id="@+id/mainactiondata"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EditData"
+        android:id="@+id/mainedit"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call"
+        android:id="@+id/maincall"/>
 
 </android.support.constraint.ConstraintLayout>

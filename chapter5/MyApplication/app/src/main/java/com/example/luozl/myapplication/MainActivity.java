@@ -2,6 +2,7 @@ package com.example.luozl.myapplication;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    final String  actions="com.example.luozl.myapplication.SecondActivity";
+    final String  actions_cate="android.intent.category.DEFAULT";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,10 +21,12 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //  component();
-                action();
+             //   component();
+               action();
             }
         });
+
+
     }
 
     private void component()
@@ -34,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public  void action()
     {
         Intent intent=new Intent();
-        intent.setAction("com.example.luozl.myapplication.SecondActivity");
+        intent.setAction(actions);
+        intent.addCategory(actions_cate);
         startActivity(intent);
     }
+
 }

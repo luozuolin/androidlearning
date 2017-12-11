@@ -12,19 +12,50 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.example.luozl.myapplication.SecondActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TelePhoneActivity">
+            <intent-filter>
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DataTypeOverride">
+            <intent-filter>
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SchemeHostPortActivity"
+            android:label="指定scheme、host、port的Activity">
+            <intent-filter>
+                <action android:name="xx" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- 只要Intent的Data属性的scheme是lee，且host是www.fkjava.org
+                port是8888即可启动该Activity -->
+                <data android:scheme="lee"
+                    android:host="www.fkjava.org"
+                    android:port="8888" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActionData">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
 </manifest>
